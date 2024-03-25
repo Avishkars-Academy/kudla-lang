@@ -36,6 +36,7 @@ const KudlaLang = (function() {
         try {
             const compiledCode = transpile(scriptContent);
             eval(compiledCode);
+
         } catch (error) {
             console.error("Error executing script:", error);
         }
@@ -53,10 +54,35 @@ const KudlaLang = (function() {
         findAndExecuteScripts();
     }
 
+    // // or when there is changes to any script tag, done with MutationObserver
+    // const observer = new MutationObserver(findAndExecuteScripts);
+    // observer.observe(document.body, { childList: true, subtree: true });
+
+    // or an event when new script tag is added
+    // document.addEventListener('DOMNodeInserted', findAndExecuteScripts);
+    
+
+
     // Public API
     return {
 
+        execute: function(scriptContent) {
+            try {
+                const compiledCode = transpile(scriptContent);
+                eval(compiledCode);
+            } catch (error) {
+                console.error("Error executing script:", error);
+            }
+        },
+
+        output: function(scriptContent) {
+            try {
+                const compiledCode = transpile(scriptContent);
+                return eval(compiledCode);
+            } catch (error) {
+                console.error("Error executing script:", error);
+            }
+        }
         
-        
-    };
+    }
 })();

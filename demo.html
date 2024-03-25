@@ -1,17 +1,55 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kudla-lang</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kudla-lang</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/theme/dracula.min.css">
 </head>
-<script src="kudla-lang.js"></script>
 <body>
     
-</body>
-<script type="text/kudla-lang">
+  <textarea id="code">
     ademutta (i = 0; i < 10; i++) {
         thojale(i)
     }
-</script>
+  </textarea>
+    <button onclick="runCode()">Run</button>
+
+    <div id="output"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/edit/closebrackets.min.js"></script>
+
+  <script src="kudla-lang.js"></script>
+
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      mode: "javascript", // Set the language mode
+      theme: "dracula",   // Set the theme (optional)
+      lineNumbers: true,  // Enable line numbers
+      autoCloseBrackets: true, // Auto close brackets
+      matchBrackets: true  // Highlight matching brackets
+    });
+
+    // any console log will be displayed in the output div
+    console.log = function(message) {
+      document.getElementById('output').innerHTML += message + '<br>';
+    }
+
+    function runCode() {
+      var code = editor.getValue();
+      KudlaLang.execute(code);
+
+    }
+  </script>
+
+
+
+
+</body>
 </html>
