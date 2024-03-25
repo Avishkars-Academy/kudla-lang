@@ -8,13 +8,11 @@ const KudlaLang = (function() {
         let jsCode = "";
         for (let i = 0; i < tokens.length; i++) {
             if (tokens[i] === 'ademutta') {
-                // Check for '(' after 'ademutta' and '{' somewhere after that
                 if (!(tokens[i+1] === '(' && tokens.includes('{', i))) {
                     throw new SyntaxError("'ademutta' used incorrectly. Expected structure: ademutta (initialization; condition; increment) { ... }");
                 }
                 jsCode += 'for';
             } else if (tokens[i] === 'thojale') {
-                // Check for '(' immediately after 'thojale' and ')' somewhere after that
                 if (!(tokens[i+1] === '(' && tokens.includes(')', i))) {
                     throw new SyntaxError("'thojale' used incorrectly. Expected structure: thojale(expression);");
                 }
@@ -22,7 +20,7 @@ const KudlaLang = (function() {
             } else {
                 jsCode += tokens[i];
             }
-            jsCode += ' '; // Adding space for readability, though this is simplistic
+            jsCode += ' ';
         }
         return jsCode;
     }
